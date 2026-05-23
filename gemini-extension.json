@@ -1,0 +1,6 @@
+{
+  "name": "hyperpowers",
+  "description": "Autonomous Superpowers-style brainstorming, planning, and subagent implementation",
+  "version": "0.1.0",
+  "contextFileName": "GEMINI.md"
+}
