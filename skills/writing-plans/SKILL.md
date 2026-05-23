@@ -31,17 +31,21 @@ pause.
 
 ## Workspace Strategy
 
-Before writing the plan or dispatching implementation subagents, ensure the
-workspace strategy is resolved:
+The workspace strategy is decided once in `brainstorming` and recorded in the
+spec. **Do not ask the user again here.**
 
-1. If the user requested a worktree, create or use that worktree.
-2. If the user requested direct work on `main`, `master`, or the current branch,
-   do that.
-3. If the user specified any other workflow, follow it.
-4. If the user gave no workflow instruction, create or reuse a dedicated branch
-   before modifying project files.
+1. Read the spec's "Workspace Strategy" field.
+2. Apply it before the first file write:
+   - **Worktree:** create the worktree (sibling directory, branch named
+     `hyperpowers/<topic-slug>`) and continue inside it.
+   - **Dedicated branch:** `git switch -c hyperpowers/<topic-slug>` if not
+     already on the right branch.
+   - **`main` / `master` / current branch:** stay where you are.
+3. If the spec is missing this field (older spec, or user skipped
+   brainstorming), fall back to a dedicated branch and note the choice in the
+   plan header.
 
-Default branch flow:
+Default branch flow when the spec says "dedicated branch":
 
 ```bash
 git status --short

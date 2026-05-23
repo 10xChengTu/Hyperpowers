@@ -48,11 +48,15 @@ Only these workflow skills are active in Hyperpowers:
 
 ## Default Workspace Behavior
 
-Explicit user instruction wins. Otherwise, before modifying project files,
-create or reuse a dedicated branch.
+Explicit user instruction wins. Otherwise:
 
-Use direct `main`/`master` edits only when the user asks for them. Use a
-worktree only when the user asks for one or project instructions require one.
+- After design approval in `brainstorming`, ask the user **exactly once**
+  whether to use a git worktree or a dedicated branch in the current checkout.
+  The default if the user does not choose is a dedicated branch.
+- Record the chosen strategy in the spec so `writing-plans` and
+  `subagent-driven-development` can reuse it without asking again.
+- Use direct `main` / `master` edits only when the user explicitly asks for
+  them.
 
 ## Platform Adaptation
 
@@ -70,6 +74,9 @@ These are Hyperpowers failures:
 - writing code before the design is clear
 - asking the user to review the written spec after design approval
 - asking the user to choose between subagent and inline execution
-- defaulting to a worktree when the user did not ask for one
+- skipping the single worktree-vs-branch question after design approval
+- asking the worktree question more than once (it belongs only in
+  `brainstorming`)
+- silently using a worktree when the user picked a branch (or the reverse)
 - defaulting to `main` or `master` when the user did not ask for that
 - reintroducing removed Superpowers workflows as active steps

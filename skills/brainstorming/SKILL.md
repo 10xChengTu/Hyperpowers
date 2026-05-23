@@ -34,7 +34,8 @@ Create a task for each item and complete them in order:
 4. **Present the design** - scale detail to complexity and get approval, unless
    the user has already given enough detail and asked you to proceed.
 5. **Resolve workspace strategy** - before writing files, follow the Workspace
-   Strategy below.
+   Strategy below. This includes asking the user whether to use a worktree if
+   they have not already said.
 6. **Write the spec** - create the directory if needed and save it to
    `docs/hyperpowers/specs/YYYY-MM-DD-<topic>-design.md`.
 7. **Review the spec** - self-review for placeholders, contradictions,
@@ -45,20 +46,33 @@ Create a task for each item and complete them in order:
 
 ## Workspace Strategy
 
-Resolve this before the first file write:
+Resolve this before the first file write. Hyperpowers asks **exactly one**
+worktree question, here in brainstorming. `writing-plans` and
+`subagent-driven-development` reuse the answer and do not ask again.
 
-1. If the user requested a worktree, create or use that worktree.
-2. If the user requested direct work on `main`, `master`, or the current branch,
-   do that.
-3. If the user specified any other workflow, follow it.
-4. If the user gave no workflow instruction, create or reuse a dedicated branch
-   for this work before modifying project files.
+1. If the user already requested a worktree, create or use that worktree.
+2. If the user already requested direct work on `main`, `master`, or the
+   current branch, do that.
+3. If the user already specified any other workflow, follow it.
+4. Otherwise, ask the user once:
+
+   > Before I write the spec, do you want this work in a git worktree, or
+   > should I just create a dedicated branch in the current checkout?
+   > (default: dedicated branch)
+
+   Use a single multiple-choice question when the platform supports it. If the
+   user does not pick, default to a dedicated branch. Record the chosen strategy
+   in the spec under "Workspace Strategy" so later phases can rely on it
+   without re-asking.
 
 Branching rules:
 
 - Use a descriptive branch such as `hyperpowers/<topic-slug>`.
+- For worktrees, place them in a sibling directory and use the same
+  `hyperpowers/<topic-slug>` branch name inside.
 - If already on a dedicated non-main branch for this work, continue there.
-- Do not stash, reset, or revert existing user changes just to create the branch.
+- Do not stash, reset, or revert existing user changes just to create the
+  branch or worktree.
 - If the repo state makes branch/worktree setup unsafe or impossible, stop and
   report the blocker.
 
